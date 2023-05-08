@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo/Model/Note.dart';
 import 'package:todo/Screens/MyHomePage.dart';
 import 'package:todo/Model/ToDo.dart';
-import 'package:todo/Screens/NotesScreen.dart';
 import 'package:intl/intl.dart';
-
 import '../Model/List.dart';
 
 class AddNote extends StatefulWidget {
@@ -135,7 +133,7 @@ class AddNoteFormState extends State<AddNote> {
                               ));
 
                           Route route = MaterialPageRoute(
-                              builder: (context) => const NotesScreen());
+                              builder: (context) => const MyHomePage());
                           Navigator.push(context, route);
                         }
                       },

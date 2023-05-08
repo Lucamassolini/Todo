@@ -27,7 +27,6 @@ class AddToDoFormState extends State<AddToDo> {
   late String cat;
   late String more;
   late String tre;
-  //DateTime selectedDate = DateTime.now();
   late String date;
   late int colore;
   DateFormat format = DateFormat("dd/MM/yyyy kk:mm:ss");

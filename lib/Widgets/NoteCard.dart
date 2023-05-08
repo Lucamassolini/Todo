@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/Screens/NoteExpanded.dart';
 import '../Model/Note.dart';
 
 class NoteCard extends StatefulWidget {
@@ -43,6 +44,12 @@ class _NoteCardState extends State<NoteCard>
               selected = !selected;
             });
             widget.callback();
+          } else {
+            Route route = MaterialPageRoute(
+                builder: (context) => NoteExpanded(
+                      note: widget.note,
+                    ));
+            Navigator.push(context, route);
           }
         },
         child: Card(
@@ -60,15 +67,17 @@ class _NoteCardState extends State<NoteCard>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      flex: 2,
-                      child: Text(
-                        widget.note.text,
-                        style: const TextStyle(
-                            color: Color(0xFF272343),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ),
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            widget.note.text,
+                            style: const TextStyle(
+                                color: Color(0xFF272343),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        )),
                   ],
                 ),
                 const Divider(),

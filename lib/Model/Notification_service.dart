@@ -26,19 +26,9 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('book');
 
-    final IOSInitializationSettings initializationSettingsIOS =
-        IOSInitializationSettings(
-      requestSoundPermission: false,
-      requestBadgePermission: false,
-      requestAlertPermission: false,
-      onDidReceiveLocalNotification: onDidReceiveLocalNotification,
-    );
-
-    final InitializationSettings initializationSettings =
+    const InitializationSettings initializationSettings =
         InitializationSettings(
-            android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,
-            macOS: null);
+            android: initializationSettingsAndroid, macOS: null);
 
     tz.initializeTimeZones(); // <------
 
