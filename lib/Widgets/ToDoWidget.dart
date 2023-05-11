@@ -6,7 +6,8 @@ import '../Model/ToDo.dart';
 import 'Cards.dart';
 
 class ToDoWidget extends StatefulWidget {
-  const ToDoWidget({Key? key}) : super(key: key);
+  final VoidCallback callback;
+  const ToDoWidget({Key? key, required this.callback}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -29,6 +30,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
 
   void longPress() {
     //notificationDefaultSound();
+    widget.callback();
     setState(() {
       if (indexList.isEmpty) {
         longPressFlag = false;
@@ -39,9 +41,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
   }
 
   void redrawList() {
-    setState(() {
-      print('pippo');
-    });
+    setState(() {});
   }
 
   @override
@@ -73,6 +73,33 @@ class _ToDoWidgetState extends State<ToDoWidget> {
                 )
               : Expanded(
                   child: FlexibleGridView(
+                    /*
+                  children: [
+                    
+                    ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: Lista.getLista().length,
+                        itemBuilder: (context, index) {
+                          final item = Lista.getLista().getAt(index);
+                          return Cards(
+                              index: index,
+                              longPressEnabled: longPressFlag,
+                              callback: () {
+                                if (indexList.contains(index)) {
+                                  indexList.remove(index);
+                                } else {
+                                  indexList.add(index);
+                                }
+
+                                longPress();
+                              },
+                              deleting: () {
+                                redrawList();
+                              },
+                              toDo: item!);
+                        }),
+                  ],*/
                     children: List.generate(
                       Lista.getLista().length,
                       (index) => Cards(
@@ -94,7 +121,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
                       ),
                     ),
                   ),
-                ),
+                )
         ],
       ),
     );

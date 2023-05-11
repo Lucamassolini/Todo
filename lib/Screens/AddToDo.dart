@@ -89,213 +89,218 @@ class AddToDoFormState extends State<AddToDo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xffe3f6f5),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color(0xFF272343),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xffe3f6f5),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF272343),
+            ),
+            onPressed: () {
+              Route route =
+                  MaterialPageRoute(builder: (context) => const MyHomePage());
+              Navigator.push(context, route);
+            },
           ),
-          onPressed: () {
-            Route route =
-                MaterialPageRoute(builder: (context) => const MyHomePage());
-            Navigator.push(context, route);
-          },
+          title: const Text(
+            'Add task',
+            style: TextStyle(color: Color(0xFF272343)),
+          ),
         ),
-        title: const Text(
-          'Add task',
-          style: TextStyle(color: Color(0xFF272343)),
-        ),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Scrollbar(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              //mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                Wrap(
-                  direction: Axis.horizontal,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            height: 100.0,
-                            child: Choice(
-                              callback: (cat) {
-                                more = cat;
-                              },
-                              lista: lista,
-                              isSelected: false,
-                              onPressed: (int index) {},
-                              value: 0,
+        body: Form(
+          key: _formKey,
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                //mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Wrap(
+                    direction: Axis.horizontal,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 100.0,
+                              child: Choice(
+                                callback: (cat) {
+                                  more = cat;
+                                },
+                                lista: lista,
+                                isSelected: false,
+                                onPressed: (int index) {},
+                                value: 0,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter text';
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: myController,
-                  decoration: const InputDecoration(
-                    labelText: 'ToDo',
-                    hintText: 'ToDo',
-                    labelStyle: TextStyle(color: Color(0xFFffd803)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF272343))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFffd803))),
+                        ],
+                      ),
+                      const SizedBox(width: 8),
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter text';
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: myController2,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                    hintText: 'Description',
-                    labelStyle: TextStyle(color: Color(0xFFffd803)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF272343))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFffd803))),
+                  const SizedBox(
+                    height: 24,
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Wrap(
-                  children: [
-                    Container(
-                      alignment: AlignmentDirectional.center,
-                      height: 30,
-                      child: _buildChips(),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                InkWell(
-                  onTap: () {
-                    _selectDate(context);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(color: Colors.grey[200]),
-                    child: TextFormField(
-                      style: const TextStyle(fontSize: 40),
-                      textAlign: TextAlign.center,
-                      enabled: false,
-                      keyboardType: TextInputType.text,
-                      controller: _dateController,
-                      onSaved: (String? val) {},
-                      decoration: const InputDecoration(
-                          disabledBorder:
-                              UnderlineInputBorder(borderSide: BorderSide.none),
-                          contentPadding: EdgeInsets.only(top: 0.0)),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter text';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
+                    controller: myController,
+                    decoration: const InputDecoration(
+                      labelText: 'ToDo',
+                      hintText: 'ToDo',
+                      labelStyle: TextStyle(color: Color(0xFFffd803)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF272343))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFffd803))),
                     ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    _selectTime(context);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 30),
-                    //width: _width / 1.7,
-                    //height: _height / 9,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(color: Colors.grey[200]),
-                    child: TextFormField(
-                      style: const TextStyle(fontSize: 40),
-                      textAlign: TextAlign.center,
-                      onSaved: (String? val) {},
-                      enabled: false,
-                      keyboardType: TextInputType.text,
-                      controller: _timeController,
-                      decoration: const InputDecoration(
-                          disabledBorder:
-                              UnderlineInputBorder(borderSide: BorderSide.none),
-                          // labelText: 'Time',
-                          contentPadding: EdgeInsets.all(5)),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter text';
+                      } else {
+                        return null;
+                      }
+                    },
+                    controller: myController2,
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                      hintText: 'Description',
+                      labelStyle: TextStyle(color: Color(0xFFffd803)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF272343))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFffd803))),
                     ),
                   ),
-                ),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          boxx.put(
-                              myController.text,
-                              ToDo(
-                                text: myController.text,
-                                secondaryText: myController2.text,
-                                categoria: more,
-                                priority: _selectedIndex,
-                                createion: DateTime.now(),
-                                finish: DateTime(
-                                    selectedDate.year,
-                                    selectedDate.month,
-                                    selectedDate.day,
-                                    selectedTime.hour,
-                                    selectedTime.minute),
-                              ));
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Wrap(
+                    children: [
+                      Container(
+                        alignment: AlignmentDirectional.center,
+                        height: 30,
+                        child: _buildChips(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _selectDate(context);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: Colors.grey[200]),
+                      child: TextFormField(
+                        style: const TextStyle(fontSize: 40),
+                        textAlign: TextAlign.center,
+                        enabled: false,
+                        keyboardType: TextInputType.text,
+                        controller: _dateController,
+                        onSaved: (String? val) {},
+                        decoration: const InputDecoration(
+                            disabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            contentPadding: EdgeInsets.only(top: 0.0)),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _selectTime(context);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30),
+                      //width: _width / 1.7,
+                      //height: _height / 9,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(color: Colors.grey[200]),
+                      child: TextFormField(
+                        style: const TextStyle(fontSize: 40),
+                        textAlign: TextAlign.center,
+                        onSaved: (String? val) {},
+                        enabled: false,
+                        keyboardType: TextInputType.text,
+                        controller: _timeController,
+                        decoration: const InputDecoration(
+                            disabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            // labelText: 'Time',
+                            contentPadding: EdgeInsets.all(5)),
+                      ),
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            boxx.put(
+                                myController.text,
+                                ToDo(
+                                  text: myController.text,
+                                  secondaryText: myController2.text,
+                                  categoria: more,
+                                  priority: _selectedIndex,
+                                  createion: DateTime.now(),
+                                  finish: DateTime(
+                                      selectedDate.year,
+                                      selectedDate.month,
+                                      selectedDate.day,
+                                      selectedTime.hour,
+                                      selectedTime.minute),
+                                ));
 
-                          alert = DateTime(
-                              selectedDate.year,
-                              selectedDate.month,
-                              selectedDate.day,
-                              selectedTime.hour,
-                              selectedTime.minute);
+                            alert = DateTime(
+                                selectedDate.year,
+                                selectedDate.month,
+                                selectedDate.day,
+                                selectedTime.hour,
+                                selectedTime.minute);
 
-                          durationAlert = Duration(
-                              minutes:
-                                  alert.difference(DateTime.now()).inMinutes -
-                                      10);
-                          NotificationService().bho(myController.text,
-                              myController2.text, durationAlert, alert);
+                            durationAlert = Duration(
+                                minutes:
+                                    alert.difference(DateTime.now()).inMinutes -
+                                        10);
+                            NotificationService().bho(myController.text,
+                                myController2.text, durationAlert, alert);
 
-                          Route route = MaterialPageRoute(
-                              builder: (context) => const MyHomePage());
-                          Navigator.push(context, route);
-                        }
-                      },
-                      child: const Text("OK"),
-                    )),
-              ],
+                            Route route = MaterialPageRoute(
+                                builder: (context) => const MyHomePage());
+                            Navigator.push(context, route);
+                          }
+                        },
+                        child: const Text("OK"),
+                      )),
+                ],
+              ),
             ),
           ),
         ),

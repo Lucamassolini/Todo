@@ -42,104 +42,109 @@ class AddNoteFormState extends State<AddNote> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xffe3f6f5),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color(0xFF272343),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xffe3f6f5),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF272343),
+            ),
+            onPressed: () {
+              Route route =
+                  MaterialPageRoute(builder: (context) => const MyHomePage());
+              Navigator.push(context, route);
+            },
           ),
-          onPressed: () {
-            Route route =
-                MaterialPageRoute(builder: (context) => const MyHomePage());
-            Navigator.push(context, route);
-          },
+          title: const Text(
+            'Add task',
+            style: TextStyle(color: Color(0xFF272343)),
+          ),
         ),
-        title: const Text(
-          'Add task',
-          style: TextStyle(color: Color(0xFF272343)),
-        ),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Scrollbar(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              //mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter text';
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: myController,
-                  decoration: const InputDecoration(
-                    labelText: 'Note',
-                    hintText: 'Note',
-                    labelStyle: TextStyle(color: Color(0xFFffd803)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF272343))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFffd803))),
+        body: Form(
+          key: _formKey,
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                //mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(
+                    height: 24,
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter text';
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: myController2,
-                  decoration: const InputDecoration(
-                    labelText: 'Description',
-                    hintText: 'Description',
-                    labelStyle: TextStyle(color: Color(0xFFffd803)),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF272343))),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFffd803))),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter text';
+                      } else {
+                        return null;
+                      }
+                    },
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
+                    controller: myController,
+                    decoration: const InputDecoration(
+                      labelText: 'Note',
+                      hintText: 'Note',
+                      labelStyle: TextStyle(color: Color(0xFFffd803)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF272343))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFffd803))),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          Lista.getNotes().put(
-                              myController.text,
-                              Note(
-                                text: myController.text,
-                                secondaryText: myController2.text,
-                              ));
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter text';
+                      } else {
+                        return null;
+                      }
+                    },
+                    controller: myController2,
+                    decoration: const InputDecoration(
+                      labelText: 'Description',
+                      hintText: 'Description',
+                      labelStyle: TextStyle(color: Color(0xFFffd803)),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF272343))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFffd803))),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            Lista.getNotes().put(
+                                myController.text,
+                                Note(
+                                  text: myController.text,
+                                  secondaryText: myController2.text,
+                                ));
 
-                          Route route = MaterialPageRoute(
-                              builder: (context) => const MyHomePage());
-                          Navigator.push(context, route);
-                        }
-                      },
-                      child: const Text("OK"),
-                    )),
-              ],
+                            Route route = MaterialPageRoute(
+                                builder: (context) => const MyHomePage());
+                            Navigator.push(context, route);
+                          }
+                        },
+                        child: const Text("OK"),
+                      )),
+                ],
+              ),
             ),
           ),
         ),

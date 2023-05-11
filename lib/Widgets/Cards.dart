@@ -29,6 +29,7 @@ class _CardsState extends State<Cards> with AutomaticKeepAliveClientMixin {
   late Color pippo;
   bool selected = false;
   final _key = GlobalKey();
+  bool finisched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +121,7 @@ class _CardsState extends State<Cards> with AutomaticKeepAliveClientMixin {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: Text(
                           widget.toDo.secondaryText,
                           style: const TextStyle(
@@ -134,26 +135,37 @@ class _CardsState extends State<Cards> with AutomaticKeepAliveClientMixin {
                 const Divider(),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: SlideCountdown(
-                        duration: tooLate(widget.toDo.finish)
-                            ? Duration(
-                                seconds: widget.toDo.finish
-                                    .difference(DateTime.now())
-                                    .inSeconds)
-                            : const Duration(),
-                        separator: ':',
-                        textStyle: const TextStyle(
-                          color: Color(0xFF272343),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        onDone: () => {},
-                      ),
+                      child: finisched
+                          ? const Text(
+                              'Done',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            )
+                          : SlideCountdown(
+                              duration: tooLate(widget.toDo.finish)
+                                  ? Duration(
+                                      seconds: widget.toDo.finish
+                                          .difference(DateTime.now())
+                                          .inSeconds)
+                                  : const Duration(),
+                              separator: ':',
+                              textStyle: const TextStyle(
+                                color: Color(0xFF272343),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              onDone: () => {
+                                setState(() {
+                                  Lista.getLista().delete(widget.toDo.text);
+                                  widget.deleting();
+                                })
+                              },
+                            ),
                     )
                   ],
                 ),
